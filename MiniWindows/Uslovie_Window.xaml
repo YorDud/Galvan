@@ -1,0 +1,173 @@
+﻿<Window x:Class="Prog3.MiniWindows.Uslovie_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Prog3.MiniWindows"
+        mc:Ignorable="d"
+        Title="Uslovie_Window" Height="425" Width="431" materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+
+    <Border Background="White" Margin="15,15,15,15"
+            CornerRadius="15" 
+            Padding="10">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="15" Color="#FF76C803" ShadowDepth="0"></DropShadowEffect>
+        </Border.Effect>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <Border Background="#4CAF50" Margin="5"
+                        CornerRadius="15" 
+                        Padding="10">
+                    <TextBlock Text="Условие" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="10" FontSize="24" FontWeight="Bold" FontFamily="Yu Gothic UI" Foreground="White"/>
+                </Border>
+            </StackPanel>
+
+            <!-- Кнопка Exit -->
+            <Button x:Name="ExitButton" Content="×"  
+                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                    FontSize="30" FontWeight="Bold" 
+                    Background="Transparent" BorderBrush="Transparent"
+                    Foreground="Red" Margin="0,-14,-15,0"
+                    Click="ExitButton_Click" Height="39" Width="50"/>
+
+            <Grid Grid.Row="1" Margin="0,10,0,126">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox x:Name="standart_check" Content="Стандартный расчет" Grid.Row="0" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="klass5_check" Content="5 класс" Grid.Row="1" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="sred_zag_check" Content="Средние заготовки" Grid.Row="2" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="neravnomer_ris_check" Content="Неравномерный рисунок" Grid.Row="3" Grid.Column="0" FontSize="15" Margin="5" Checked="Neravnomer_Checked" Unchecked="Neravnomer_Unchecked"/>
+                <ComboBox x:Name="neravnomerCombo1" Grid.Row="3" Grid.Column="1" Margin="5" Visibility="Collapsed" SelectionChanged="NeravnomerCombo1_SelectionChanged">
+                    <ComboBoxItem>Top</ComboBoxItem>
+                    <ComboBoxItem>Bottom</ComboBoxItem>
+                </ComboBox>
+                <ComboBox x:Name="neravnomerCombo2" Grid.Row="3" Grid.Column="2" Margin="5" Visibility="Collapsed" SelectionChanged="neravnomerCombo2_SelectionChanged">
+                    <ComboBoxItem>Верх</ComboBoxItem>
+                    <ComboBoxItem>Низ</ComboBoxItem>
+                    <ComboBoxItem>Лево</ComboBoxItem>
+                    <ComboBoxItem>Право</ComboBoxItem>
+                </ComboBox>
+                <CheckBox x:Name="raznica_check" Content="Разница" Grid.Row="5" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="mal_plosh_check" Content="Маленькие площади" Grid.Row="6" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+
+                <Button Content="Выбрать" Grid.Row="8" Grid.ColumnSpan="4" Margin="5" Background="#4CAF50" BorderBrush="#FF85E600" Foreground="#DDFFFFFF" Click="Dobav_Uslov"/>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
+
+
+
+<!--<Window x:Class="Prog3.MiniWindows.Uslovie_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Prog3.MiniWindows"
+        mc:Ignorable="d"
+        Title="Uslovie_Window" Height="425" Width="344" materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+ResizeMode="NoResize"
+WindowStyle="None"
+Background="Transparent"
+AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+
+
+    <Border Background="White" Margin="15,15,15,15"
+                CornerRadius="15" 
+                Padding="10">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="15" Color="#FF76C803" ShadowDepth="0"></DropShadowEffect>
+        </Border.Effect>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            
+            
+            <StackPanel Grid.Row="0">
+                <Border Background="#4CAF50" Margin="5"
+CornerRadius="15" 
+Padding="10">
+                    <TextBlock Text="Условие" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Margin="10" FontSize="24" FontWeight="Bold" FontFamily="Yu Gothic UI" Foreground="White"/>
+                </Border>
+            </StackPanel>
+
+
+            --><!-- Кнопка Exit --><!--
+            <Button x:Name="ExitButton" Content="×"  
+HorizontalAlignment="Right" VerticalAlignment="Top"
+FontSize="30" FontWeight="Bold" 
+Background="Transparent" BorderBrush="Transparent"
+Foreground="Red" Margin="0,-14,-15,0"
+Click="ExitButton_Click" Height="39" Width="50"/>
+
+            <Grid Grid.Row="1" Margin="0,10,0,126">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <CheckBox x:Name="standart_check" Content="Стандартный расчет" Grid.Row="0" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="klass5_check" Content="5 класс" Grid.Row="1" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="sred_zag_check" Content="Средние заготовки" Grid.Row="2" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="neravnomer_ris_check" Content="Неравномерный рисунок" Grid.Row="3" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="raznica_check" Content="Разница" Grid.Row="4" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+                <CheckBox x:Name="mal_plosh_ris_check" Content="Маленькие площади" Grid.Row="5" Grid.Column="0" FontSize="15" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+
+                <Button Content="Выбрать" Grid.Row="8" Grid.ColumnSpan="4" Margin="5" Background="#4CAF50" BorderBrush="#FF85E600" Foreground="#DDFFFFFF" Click="Dobav_Uslov"/>
+
+
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>-->

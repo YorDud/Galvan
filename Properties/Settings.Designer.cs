@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Galvan.Properties
+namespace Prog3.Properties
 {
 
 

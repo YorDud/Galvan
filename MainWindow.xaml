@@ -1,12 +1,562 @@
-﻿<Window x:Class="Galvan.MainWindow"
+﻿<Window x:Class="Prog3.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Galvan"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Prog3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border Background="#4CAF50" Margin="5,5,5,35"
+CornerRadius="15" 
+Padding="10">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Color="White" ShadowDepth="0"></DropShadowEffect>
+            </Border.Effect>
+            <TextBlock Grid.Row="0" Text="Гальваническая линия 2-ой металлизации МГЛ" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" FontSize="24" FontWeight="Bold" FontFamily="Yu Gothic UI" Foreground="White"/>
+        </Border>
+        <Label Grid.Row="1" Content=""    VerticalAlignment="Center" HorizontalAlignment="Left"   Margin="15,0,40,0" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+        <TextBox x:Name="SearchBox" Grid.Row="1" Grid.Column="1" Margin="15,5,5,5" Height="30" Width="110" Padding="3" materialDesign:HintAssist.Hint="Поиск" 
+              Style="{StaticResource MaterialDesignOutlinedTextBox}" HorizontalAlignment="Left" TextChanged="SearchBox_TextChanged"/>
+        <Button x:Name="ClearBtn" Content="✖" Margin="130,5,5,5" HorizontalAlignment="Left" Grid.Row="1" Width="auto" Height="30" Click="ClearBtn_Click" Background="#4CAF50" BorderBrush="#FF85E600" Foreground="#DDFFFFFF" FontSize="16" FontWeight="Bold"/>
+
+        <Button Content="Добавить новый завес" Margin="5,5,5,5" HorizontalAlignment="Center" Grid.Row="1" Width="auto" Click="New_Data_Click" Background="#4CAF50" BorderBrush="#FF85E600" Foreground="#DDFFFFFF" FontSize="16" FontWeight="Bold"/>
+        <Button Content="Константы" Margin="400,5,5,5" HorizontalAlignment="Center" Grid.Row="1" Width="auto" Click="Konstant_Click" Background="#4CAF50" BorderBrush="#FF85E600" Foreground="#DDFFFFFF" FontSize="16" FontWeight="Bold"/>
+
+        <Label x:Name="LabelFIO" Grid.Row="1" Content="ФИО"    VerticalAlignment="Center" HorizontalAlignment="Right"   Margin="10,0,40,0" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+
+
+
+        <ContentControl Grid.Row="2" x:Name="Jurnal" Visibility="Visible">
+
+
+            <DataGrid x:Name="dataGridMonitorJurnal" MouseLeftButtonUp="DataGrid_MouseLeftButtonUp" Loaded="DataGridMonitorJurnal_Loaded" MouseDoubleClick="DataGridMonitorJurnal_MouseDoubleClick" 
+          IsReadOnly="True"
+          AutoGenerateColumns="False"
+          Margin="15"
+          Grid.Row="3"
+          Grid.ColumnSpan="2"
+          Height="450"
+          HorizontalGridLinesBrush="Gray"
+          VerticalGridLinesBrush="Gray"
+          HeadersVisibility="Column"
+          RowBackground="White"
+          BorderBrush="DarkGray"
+          BorderThickness="1"
+          ColumnHeaderHeight="50"
+          RowHeight="30"
+          SelectionUnit="FullRow" SelectionChanged="dataGridMonitorJurnal_SelectionChanged">
+
+                <!-- Настройка стиля заголовков столбцов -->
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Background" Value="#4CAF50"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Height" Value="50"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="DarkGray"/>
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" MaxWidth="150" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <!-- Настройка ячеек -->
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <!-- Настройка стиля выделенных элементов -->
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#90CAF9"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                </DataGrid.Resources>
+
+                <!-- Определение столбцов -->
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="Auto" Header="№ п/п">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ID}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="70" Header="№ штанги">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding N_Shtang}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="70" Header="№ ванны">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding N_Vann}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="№ завеса">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding N_Zaves}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="120" Header="№ заказа">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding N_Zakaz}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="Условие">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Uslovie}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="S Top">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding S_A}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="S Bottom">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding S_B}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="S Top,          сумма">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding S_A_Sum}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="S Bottom, сумма">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding S_B_Sum}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+
+
+
+                    <!-- I A, Sn -->
+                    <DataGridTemplateColumn Width="100" Header="I A, Sn">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding I_A_Sn}" 
+                       HorizontalAlignment="Center" 
+                       TextAlignment="Center" 
+                       Foreground="Black"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background" Value="#FFF9AC5E"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTemplateColumn.CellStyle>
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="Background" Value="#FFF9AC5E"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+                                   TextWrapping="Wrap" 
+                                   MaxWidth="150" 
+                                   TextAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
+
+                    <!-- I B, Sn -->
+                    <DataGridTemplateColumn Width="100" Header="I B, Sn">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding I_B_Sn}" 
+                       HorizontalAlignment="Center" 
+                       TextAlignment="Center" 
+                       Foreground="Black"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background" Value="#FFF9AC5E"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTemplateColumn.CellStyle>
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="Background" Value="#FFF9AC5E"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+                                   TextWrapping="Wrap" 
+                                   MaxWidth="150" 
+                                   TextAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
+
+
+
+
+
+
+                    <DataGridTemplateColumn Width="100" Header="I A, Cu">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding I_A_Cu}"    HorizontalAlignment="Center" 
+   TextAlignment="Center" 
+   Foreground="Black"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background" Value="#FFFDBAA0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTemplateColumn.CellStyle>
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="Background" Value="#FFFDBAA0"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+               TextWrapping="Wrap" 
+               MaxWidth="150" 
+               TextAlignment="Center" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="100" Header="I B, Cu">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding I_B_Cu}"    HorizontalAlignment="Center" 
+   TextAlignment="Center" 
+   Foreground="Black"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                                <Setter Property="Background" Value="#FFFDBAA0"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTemplateColumn.CellStyle>
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="Background" Value="#FFFDBAA0"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+               TextWrapping="Wrap" 
+               MaxWidth="150" 
+               TextAlignment="Center" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                    </DataGridTemplateColumn>
+
+                    <!-- Занесение в базу -->
+                    <DataGridCheckBoxColumn Width="70" Header="Занесение в базу" 
+                            Binding="{Binding Zanos_v_BD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True">
+                        <DataGridCheckBoxColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Background" Value="White"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Zanos_v_BD}" Value="True">
+                                        <Setter Property="Background" Value="LightGreen"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Zanos_v_BD}" Value="False">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Zanos_v_BD}" Value="{x:Null}">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridCheckBoxColumn.CellStyle>
+                    </DataGridCheckBoxColumn>
+
+                    <!-- Загружен на линию -->
+                    <DataGridCheckBoxColumn Width="70" Header="Загружен на линию" 
+                            Binding="{Binding Zagruz_v_Line, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True">
+                        <DataGridCheckBoxColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Background" Value="White"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Zagruz_v_Line}" Value="True">
+                                        <Setter Property="Background" Value="LightGreen"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Zagruz_v_Line}" Value="False">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Zagruz_v_Line}" Value="{x:Null}">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridCheckBoxColumn.CellStyle>
+                    </DataGridCheckBoxColumn>
+
+                    <!-- Выход с линии -->
+                    <DataGridCheckBoxColumn Width="70" Header="Выход с линии" 
+                            Binding="{Binding Exit_s_Line, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsReadOnly="True">
+                        <DataGridCheckBoxColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Background" Value="White"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Exit_s_Line}" Value="True">
+                                        <Setter Property="Background" Value="LightGreen"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Exit_s_Line}" Value="False">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Exit_s_Line}" Value="{x:Null}">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridCheckBoxColumn.CellStyle>
+                    </DataGridCheckBoxColumn>
+
+                    <DataGridTemplateColumn Width="120" Header="Дата / Время">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Date, StringFormat={}{0:dd.MM.yyyy HH:mm}}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="120" Header="ФИО">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding FIO}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="110" Header="Комментарий">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Comment}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--<DataGrid x:Name="dataGridMonitorJurnal"  IsReadOnly="True" AutoGenerateColumns="False" Margin="15" Grid.Row="3" Grid.ColumnSpan="2" Height="600"
+          HorizontalGridLinesBrush="Black" VerticalGridLinesBrush="Black">
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                       
+                        <Setter Property="Height" Value="80"/>
+
+                        -->
+            <!-- Создание кастомного шаблона для заголовка с переносом текста -->
+            <!--
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" TextWrapping="Wrap" MaxWidth="130" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="10"/>
+                    </Style>
+                </DataGrid.CellStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ п/п" Width="auto" Binding="{Binding ID}" />
+                    <DataGridTextColumn Header="№ штанги" Width="70" Binding="{Binding N_Shtang}" />
+                    <DataGridTextColumn Header="№ ванны" Width="70" Binding="{Binding N_Vann}" />
+                    <DataGridTextColumn Header="№ завеса" Width="100" Binding="{Binding N_Zaves}" />
+                    <DataGridTextColumn Header="№ заказа" Width="120" Binding="{Binding N_Zakaz}" />
+                    <DataGridTextColumn Header="Условие" Width="100" Binding="{Binding Uslovie}" />
+                    <DataGridTextColumn Header="S A, площадь" Width="100" Binding="{Binding S_A}" />
+                    <DataGridTextColumn Header="S B, площадь" Width="100" Binding="{Binding S_B}" />
+                    <DataGridTextColumn Header="S A, сумма" Width="100" Binding="{Binding S_A_Sum}" />
+                    <DataGridTextColumn Header="S B, сумма" Width="100" Binding="{Binding S_B_Sum}" />
+                    <DataGridTextColumn Header="I A, Sn" Width="100" Binding="{Binding I_A_Sn}" />
+                    <DataGridTextColumn Header="I B, Sn" Width="100" Binding="{Binding I_B_Sn}" />
+                    <DataGridTextColumn Header="I A, Cu" Width="100" Binding="{Binding I_A_Cu}" />
+                    <DataGridTextColumn Header="I B, Cu" Width="100" Binding="{Binding I_B_Cu}" />
+                    <DataGridTextColumn Header="Занесение в базу" Width="100" Binding="{Binding Zanos_v_BD}" />
+                    <DataGridTextColumn Header="Загружен на линию" Width="100" Binding="{Binding Zagruz_v_Line}" />
+                    <DataGridTextColumn Header="Выход с линии" Width="100" Binding="{Binding Exit_s_Line}" />
+                    <DataGridTextColumn Header="Дата/Время" Width="120" Binding="{Binding Date,StringFormat=\{0:dd.MM.yyyy HH:mm\}}" />
+                    <DataGridTextColumn Header="ФИО" Width="120" Binding="{Binding FIO}" />
+                    <DataGridTextColumn Header="Комментарий" Width="120" Binding="{Binding Comment}" />
+                </DataGrid.Columns>
+                </DataGrid>-->
+
+        </ContentControl>
+
+        <ContentControl x:Name="Visual" Grid.Row="3" Visibility="Visible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="300" />
+                </Grid.ColumnDefinitions>
+                <!-- Кнопка Exit -->
+                <Button Grid.Row="0" Grid.ColumnSpan="5" x:Name="ExitButton" Content="×"  
+HorizontalAlignment="Right" VerticalAlignment="Top"
+FontSize="30" FontWeight="Bold" 
+Background="Transparent" BorderBrush="Transparent"
+Foreground="Red" Margin="0,-14,-15,0" Height="39" Width="50" Click="ExitButton_Click"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="A" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+                        <TextBlock Text="B" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI"/>
+                        <TextBlock Text="Sn" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI"/>
+                        <TextBlock Text="Cu" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI"/>
+
+                        <Label Grid.Row="1" Grid.Column="1" Content="a"    VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+                        <Label Grid.Row="2" Grid.Column="1" Content="a"    VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+
+
+                        <Label Grid.Row="1" Grid.Column="2" Content="b"    VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+                        <Label Grid.Row="2" Grid.Column="2" Content="b"    VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Yu Gothic UI" />
+
+
+
+
+                    </Grid>
+
+                </StackPanel>
+
+                <Image Name="DisplayImage1" Grid.Column="1" Grid.Row="1"  Margin="5" Width="300" Height="300"/>
+                <Image Name="DisplayImage2" Grid.Column="2" Grid.Row="1"  Margin="5" Width="300" Height="300"/>
+                <Image Name="DisplayImage3" Grid.Column="3" Grid.Row="1"  Margin="5" Width="300" Height="300"/>
+                <Image Name="DisplayImage4" Grid.Column="4" Grid.Row="1"  Margin="5" Width="300" Height="300"/>
+                <Label Grid.Column="1" x:Name="labelNZak1" Content="Номер заготовки 1" HorizontalAlignment="Left" Margin="5" Grid.Row="1" VerticalAlignment="Top"/>
+                <Label Grid.Column="2" x:Name="labelNZak2" Content="Номер заготовки 2" HorizontalAlignment="Left" Margin="5" Grid.Row="1" VerticalAlignment="Top"/>
+                <Label Grid.Column="3" x:Name="labelNZak3" Content="Номер заготовки 3" HorizontalAlignment="Left" Margin="5" Grid.Row="1" VerticalAlignment="Top"/>
+                <Label Grid.Column="4" x:Name="labelNZak4" Content="Номер заготовки 4" HorizontalAlignment="Left" Margin="5" Grid.Row="1" VerticalAlignment="Top"/>
+
+            </Grid>
+        </ContentControl>
     </Grid>
 </Window>

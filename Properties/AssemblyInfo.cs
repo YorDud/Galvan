@@ -7,11 +7,11 @@ using System.Windows;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набор атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Galvan")]
+[assembly: AssemblyTitle("Prog3")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("REZONIT")]
-[assembly: AssemblyProduct("Galvan")]
+[assembly: AssemblyProduct("Prog3")]
 [assembly: AssemblyCopyright("Copyright © REZONIT 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
